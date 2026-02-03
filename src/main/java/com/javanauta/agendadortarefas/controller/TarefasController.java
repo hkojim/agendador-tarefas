@@ -3,7 +3,6 @@ package com.javanauta.agendadortarefas.controller;
 import com.javanauta.agendadortarefas.business.TarefaService;
 import com.javanauta.agendadortarefas.business.dto.TarefasDTO;
 import com.javanauta.agendadortarefas.infrastructure.enums.StatusNotificacaoEnum;
-import com.javanauta.agendadortarefas.infrastructure.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,8 @@ public class TarefasController {
     private final TarefaService tarefaService;
 
     @PostMapping
-    public ResponseEntity<TarefasDTO> gravarTarefa(@RequestBody TarefasDTO dto, @RequestHeader("Authorization") String token) {
+    public ResponseEntity<TarefasDTO> gravarTarefa(@RequestBody TarefasDTO dto,
+                                                   @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(tarefaService.gravarTarefa(token, dto));
     }
 
@@ -43,12 +43,14 @@ public class TarefasController {
     }
 
     @PatchMapping
-    public ResponseEntity<TarefasDTO> alteraStatusNotificacao(@RequestParam("status")StatusNotificacaoEnum status, @RequestParam("id") String id){
+    public ResponseEntity<TarefasDTO> alteraStatusNotificacao(@RequestParam("status")StatusNotificacaoEnum status,
+                                                              @RequestParam("id") String id){
         return ResponseEntity.ok(tarefaService.alteraStatus(status, id));
     }
 
     @PutMapping
-    public ResponseEntity<TarefasDTO> upadteTarefas(@RequestBody TarefasDTO dto, @RequestParam("id") String id){
+    public ResponseEntity<TarefasDTO> upadteTarefas(@RequestBody TarefasDTO dto,
+                                                    @RequestParam("id") String id){
         return ResponseEntity.ok(tarefaService.updateTarefas(dto, id));
     }
 }
